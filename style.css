@@ -791,7 +791,6 @@ html,body { height: 100%; font-family: Georgia, 'Times New Roman', serif; color:
 .details .left p{
   margin-top: 20px;
   font-size: 20px;
-  font-weight: lighter;
 }
 
 .details .left input{

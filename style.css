@@ -889,18 +889,27 @@ html,body { height: 100%; font-family: Georgia, 'Times New Roman', serif; color:
 /* Responsive Footer */
 @media (max-width: 768px) {
   .footer {
+    width: 100%;
+    height: auto;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
+    padding: 25px 15px;
     text-align: center;
-    gap: 15px;
-    padding: 20px 10px;
+  }
+
+  .footer p {
+    max-width: 90%;
+    margin: 0 auto;
+    line-height: 1.5;
+    word-break: break-word;
   }
 
   .footer .left,
-  .footer .right,
-  .footer p {
+  .footer .right {
     width: 100%;
     text-align: center;
+    margin-bottom: 10px;
   }
 }

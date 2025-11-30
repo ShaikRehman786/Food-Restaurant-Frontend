@@ -1,0 +1,909 @@
+/* ===============
+   GLOBAL RESET
+   =============== */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html,body { height: 100%; font-family: Georgia, 'Times New Roman', serif; color: #111; }
+
+/* =================
+   NAVBAR (desktop+mobile)
+   ================== */
+.navbar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  position: relative;
+  z-index: 9999;
+  background: #fff;
+}
+
+/* logo */
+.navbar .logo img {
+  width: 120px;
+  height: auto;
+  display: block;
+}
+
+/* menu - desktop */
+.navbar .menu {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-right: 20px;
+}
+
+.navbar .menu ul {
+  display: flex;
+  list-style: none;
+  gap: 18px;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar .menu ul li {
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 15px;
+  color: #111;
+}
+
+.navbar .menu ul li:hover {
+  background-color: #eee;
+  transition: background-color .2s;
+}
+
+/* order button (desktop) */
+.navbar .menu button {
+  padding: 9px 18px;
+  background-color: orange;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+  font-size: 15px;
+}
+.navbar .menu button:hover { transform: translateY(-1px); transition: .15s; background-color: white; color: black; border: 2px solid orange;}
+
+/* hide checkbox & icon defaults */
+#menuToggle { display: none; }
+.menu-icon { display: none; cursor: pointer; font-size: 28px; color: orange; }
+
+/* =================
+   MOBILE: hamburger + drawer (pure CSS)
+   ================== */
+@media (max-width: 768px) {
+
+  .menu-icon { display: block; margin-right: 10px; }
+
+  /* Hide desktop menu */
+  .navbar .menu { 
+    display: none;            /* hidden by default on mobile */
+    position: absolute;
+    top: 70px;
+    right: 16px;
+    width: 280px;             /* drawer width */
+    background: #111;         /* drawer background */
+    color: #fff;
+    flex-direction: column;
+    padding: 18px;
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+  }
+
+  /* Reset any desktop alignments that might leak into mobile */
+  .navbar .menu {
+    margin-right: 0;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+
+  /* When checkbox is checked, show menu */
+  #menuToggle:checked ~ .menu {
+    display: flex;
+  }
+
+  /* Menu list styles (mobile) */
+  .navbar .menu ul {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+    padding: 0;
+    margin: 0;
+  }
+
+  /* Each item fills container — no horizontal margins */
+  .navbar .menu ul li {
+    width: 100%;
+    padding: 12px 10px;
+    background: orange;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 16px;
+    margin: 0; /* important: remove horizontal margins that cause overflow */
+  }
+
+  .navbar .menu ul li:hover { color: #000; }
+
+  /* mobile order button — full width */
+  .navbar .menu button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    background: #54a805;
+    border-radius: 6px;
+    font-size: 16px;
+  }
+
+  /* make sure the hamburger label is inline inside navbar flow */
+  .menu-icon {
+    display: block;
+    background: transparent;
+    border: none;
+    font-size: 28px;
+    line-height: 1;
+  }
+}
+
+/* =================
+   HERO SECTION
+   ================== */
+.hero {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* the image container (keeps image responsive) */
+.hero .right img {
+  width: 100%;
+  height: 90vh;
+  object-fit: cover;
+  display: block;
+}
+
+/* left text block sitting on top of the image */
+.hero .left {
+  position: absolute;
+  top: 18%;
+  left: 5%;
+  width:auto;
+  max-width: 520px;
+  color: #000;
+  z-index: 2;
+  /* small text shadow for readability on bright backgrounds */
+  text-shadow: 0 1px 0 rgba(255,255,255,0.5);
+}
+
+.hero .left h6 {
+  color: orange;
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 30px;
+}
+
+.hero .left h1 {
+  width:100%;
+  margin-bottom: 30px;
+  text-align: start;
+}
+
+
+.hero .left p {
+  font-size: 20px;
+  margin-bottom: 30px;
+}
+
+.hero .left button {
+  padding: 10px 20px;
+  background-color: orange;
+  border: none;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.hero .left button:hover{
+    background-color: white; color: black; border: 2px solid orange;
+    transition: 0.5s;
+}
+/* add a subtle overlay behind text for readability (optional) */
+.hero::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; top: 0; bottom: 0;
+  pointer-events: none;
+  /* gradient helps text readability; adjust alpha as needed */
+  background: linear-gradient(to bottom, rgba(255,255,255,0.05), rgba(0,0,0,0.05));
+  z-index: 1;
+}
+
+/* =================
+   HERO - MOBILE
+   ================== */
+@media (max-width: 768px) {
+  .hero .right img { height: 60vh; object-fit: cover; }
+
+  /* keep text on image — scale & position for mobile */
+  .hero .left {
+    top: 12%;
+    left: 6%;
+    width: 88%;
+    color: #000;
+  }
+
+  .hero .left h1 { font-size: 32px; line-height: 1.15; }
+  .hero .left h6 { font-size: 16px; }
+  .hero .left p { font-size: 15px; }
+  .hero .left button { font-size: 15px; padding: 10px 16px; }
+}
+
+/* =================
+   ABOUT SECTION
+   ================== */
+.about {
+  width: 100%;
+  display: flex;
+  gap: 30px;
+  align-items: flex-start;
+  justify-content: space-around;
+  margin-top: 80px;
+  padding: 0 20px;
+}
+
+.about .left { width: 50%; }
+.about .left h5 { font-size: 20px; color: orange; margin-bottom: 20px; text-align: center;}
+.about .left h1 { font-size: 48px; margin-bottom: 20px; font-weight: bold; text-align: start;}
+.about .left p { font-size: 18px; color: #333; margin-bottom: 20px; }
+
+.about .left .boxes { display: flex; flex-wrap: wrap; gap: 12px; }
+.about .left .boxes .box {
+  width: 48%;
+  background: #f2f2f2;
+  padding: 14px;
+  border-radius: 6px;
+  /* text-align:start; */
+  text-decoration: none;
+  font-size: 13px;
+  margin-left: 5px;
+}
+
+.about .left .boxes .box{
+  display: flex;
+}
+
+
+.about .left .boxes .box svg{
+  width:50px;
+  height: 50px;
+  padding: 0 auto;
+  margin-top: 0;
+  margin-right: 5px;
+}
+
+/* right image */
+.about .right { width: 40%; display:flex; justify-content:center; align-items:center; }
+.about .right img { width: 90%; height: 90vh; object-fit: cover; }
+
+/* ABOUT - MOBILE */
+@media (max-width: 560px) {
+  .about { display: block; margin-top: 30px; padding: 0 12px; }
+  .about .left { width: 100%; margin-bottom: 18px; }
+  .about .left h1 { font-size: 36px; }
+  .about .left p { font-size: 16px; }
+  .about .left .boxes .box { width: 100%; padding: 18px; }
+  .about .right { width: 100%; margin-top: 12px; }
+  .about .right img { width: 100%; object-fit: cover; height: auto;}
+}
+
+/* =================
+   SMALL UTILITIES
+   ================== */
+.hidden { display: none !important; }
+.center { text-align: center; }
+.btn { display: inline-block; padding: 10px 18px; border-radius: 6px; }
+
+/* end of stylesheet */
+
+
+/* 561px to 768px */
+@media(min-width:561px) and (max-width:768px){
+.about { display: block; margin-top: 30px; padding: 0 12px; }
+  .about .left { width: 100%; margin-bottom: 18px; }
+  .about .left h1 { font-size: 36px; }
+  .about .left p { font-size: 16px; }
+  .about .boxes{ display: flex; flex-wrap: wrap;}
+  .about .left .boxes .box { width: 100%; padding: 18px; font-size: 15px;}
+  .about .right { width: 100%; margin-top: 12px; }
+  .about .right img { width: 100%; object-fit:cover; height: auto;}
+}
+
+
+
+
+/* ======================
+      ABOUT-2 (DESKTOP)
+   ====================== */
+
+.part-2 {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    margin-top: 70px;
+    padding: 0 5%;
+}
+
+/* LEFT (IMAGE) */
+.part-2 .left {
+    width: 50%;
+}
+
+.part-2 .left img {
+    width: 90%;
+    height: 100vh;
+    object-fit: cover;
+    border-radius: 10px;
+    display: block;
+}
+
+/* RIGHT (TEXT) */
+.part-2 .right {
+    width: 50%;
+}
+
+.part-2 .right h6 {
+    color: orange;
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.part-2 .right h1 {
+    font-size: 50px;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 20px;
+}
+
+.part-2 .right p {
+    font-size: 18px;
+    line-height: 1.4;
+    font-weight: 300;
+}
+
+.part-2 .right button {
+    padding: 12px 40px;
+    margin-top: 30px;
+    border: 2px solid orange;
+    background: white;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.part-2 .right button:hover {
+    background: orange;
+    color: #fff;
+}
+
+
+/* ==================================
+        MOBILE RESPONSIVE (768px)
+   ================================== */
+
+@media (max-width: 768px) {
+
+    .part-2 {
+        width: 100%;
+        display: block;   /* Stack items vertically */
+        padding: 0;
+        margin-top: 40px;
+    }
+
+    /* LEFT IMAGE SECTION */
+    .part-2 .left {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    .part-2 .left img {
+        width: 95%;
+        height: auto;       /* Perfect responsive height */
+        object-fit: cover;  /* Ensures beautiful cropping */
+        display: block;
+        margin-left: 2%;
+    }
+
+    /* RIGHT TEXT SECTION */
+    .part-2 .right {
+        width: 100%;
+        padding: 20px;
+        margin-top: 20px;
+        text-align: left;
+        border: none;       /* remove debug border */
+    }
+
+    .part-2 .right h1 {
+        font-size: 32px;
+        line-height: 1.2;
+    }
+
+    .part-2 .right h6{ text-align: center;}
+
+    .part-2 .right p {
+        font-size: 16px;
+    }
+
+    .part-2 .right button {
+        width: auto;
+        font-size: 16px;
+        display: block;
+        margin: 0 auto;
+        padding: 10px 100px;
+        background-color: orange;
+        color:white;
+        cursor: pointer;
+    }
+
+    .part-2 .right button:hover{
+      background-color: white;
+      color:black;
+      border: 2px solid orange;
+    }
+}
+
+/* ===========================
+   FULL BOOKING SECTION
+=========================== */
+/* ===========================
+    BOOKING SECTION
+=========================== */
+
+.booking-section {
+    position: relative;
+    width: 100%;
+    padding: 120px 0 150px;
+    background: #f3f3f7; /* right-side light grey background */
+    overflow: hidden;
+    text-align: center;
+    margin-top: 5%;
+}
+
+/* LEFT IMAGE EXACTLY LIKE SCREENSHOT */
+.bg-left {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 55%;      /* controls how much left image appears */
+    height: 100%;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.bg-left img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: left top; /* ensures perfect crop matching screenshot */
+}
+
+
+/* ===========================
+    TEXT AREA
+=========================== */
+
+.booking-text {
+    position: relative;
+    z-index: 5;
+    margin-bottom: 40px;
+}
+
+.booking-text h6 {
+    color: orange;
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.booking-text h1 {
+    font-size: 52px;
+    font-weight: 800;
+    color: #000;
+}
+
+
+
+/* ===========================
+    BOOKING BOX
+=========================== */
+
+.booking-box {
+    position: relative;
+    z-index: 10;
+    width: 88%;
+    margin: 0 auto;
+    background: #fff;
+    padding: 28px 30px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 25px;
+    box-shadow: 0 6px 30px rgba(0,0,0,0.13);
+}
+
+
+
+/* ===========================
+    INPUT FIELDS
+=========================== */
+* {
+    box-sizing: border-box;
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+    background: #ebebeb;
+    padding: 0 18px;
+    border-radius: 10px;
+    height: 55px;
+    flex: 1;
+    gap: 12px;
+}
+
+.input-group .icon {
+    font-size: 20px;
+    opacity: 0.7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.input-group input,
+.input-group select {
+    flex: 1;
+    height: 100%;
+    border: none;
+    background: transparent;
+    outline: none;
+    font-size: 16px;
+    padding: 0;
+    line-height: 55px;        /* IMPORTANT: centers text */
+}
+
+/* Fix default date/time styling */
+.input-group input[type="date"],
+.input-group input[type="time"] {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+
+
+
+/* ===========================
+    BOOK NOW BUTTON
+=========================== */
+
+.book-btn {
+    background: orange;
+    color: #fff;
+    padding: 14px 35px;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.book-btn:hover {
+    background: white;
+    color: black;
+    border: 2px solid orange;
+}
+
+
+
+/* ===========================
+    MOBILE RESPONSIVE
+=========================== */
+
+@media (max-width: 768px) {
+
+    .bg-left {
+        width: 100%;
+        height: 45vh;
+        opacity: 0.9;
+    }
+
+    .booking-text h1 {
+        font-size: 32px;
+    }
+
+    .booking-box {
+        flex-direction: column;
+        width: 96%;
+        gap: 15px;
+        padding: 25px 20px;
+    }
+
+    .input-group {
+        width: 100%;
+    }
+
+    .book-btn {
+        width: 100%;
+    }
+}
+
+
+
+
+
+
+/* services */
+.services{
+  width:100%;
+  /* border:2px solid red; */
+  /* margin-top: 100px; */
+}
+
+.services h5, h1{
+  text-align: center;
+}
+
+.services h5{
+  color:orange;
+  margin-top: 70px;
+  font-size: 20px;
+}
+
+.services h1{
+  font-size: 40px;
+  margin-top: 50px;
+
+}
+
+.services .boxes{
+    width:80%;
+    /* border:2px solid green; */
+    margin-top: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    margin: 0 auto;
+    margin-top: 60px;
+    text-align: center;
+}
+
+.boxes .box svg{
+  margin-top: 20px;
+}
+
+.services .boxes .box{
+  width: 30%;
+  height: 200px;
+  box-shadow: 0 5px 10px gray;
+  border-radius: 5px;
+  margin-bottom: 100px;
+}
+
+.services .boxes .box:hover{
+  font-size: 17px;
+  width:31%;
+  transition: 0.5s;
+  box-shadow: 0 5px 20px gray;
+}
+
+.services .boxes .box h6{
+  margin-top: 20px;
+  font-size: 15px;
+  text-align: center;
+}
+
+.services .boxes .box p{
+  margin-top: 10px;
+  text-align: center;
+
+}
+
+
+@media(max-width:768px){
+  .services h5{
+    margin-top: 20px;
+  }
+
+  .services .boxes .box{
+      width:100%;
+      margin: 10px;
+      height: auto;
+      box-shadow: 0 ;
+  }
+
+  .services .boxes .box:hover{
+    font-size: 16px;
+    width:100%;
+    height: auto;
+  }
+
+
+  .services .boxes .box svg{
+    text-align: center;
+    margin: 10px;
+    width:100px;
+  }
+
+  .services .boxes .box p{
+    font-size: 15px;
+    font-weight: lighter;
+  }
+
+
+}
+
+
+
+
+/* details */
+.details{
+  width:100%;
+  position: relative;
+}
+
+.details img{
+  height: 100vh;
+  width:100%;object-fit: cover;
+}
+
+.details .left{
+  position: absolute;
+  top: 15%;
+  /* margin-left: 50%; */
+  left: 55%;
+
+  transform: translateX(0);
+  width:40%;
+}
+
+.details .left h5{
+  color:orange;
+  font-size: 20px;
+}
+
+.details .left h1{
+  margin-top: 20px;
+  font-size: 50px;
+  font-weight: bold;
+  text-align: start;
+}
+
+.details .left p{
+  margin-top: 20px;
+  font-size: 20px;
+  font-weight: lighter;
+}
+
+.details .left input{
+  width:50%;
+  border: none;
+  padding:10px 20px;
+  border: 1px solid orange;
+}
+
+.details .left button{
+  margin-top: 20px;
+  width: 50%;
+  border: none;
+  padding:10px 20px;
+  background-color: orange;
+  color: white;
+  border-radius: 5px;
+  font-size: 18px;
+}
+
+.details .left button:hover{
+  background-color: white;
+  color:black;
+  border: 2px solid orange;
+  transition: 0.5s;
+}
+
+/* responsive */
+/* responsive */
+@media(max-width:768px){
+
+  .details img{
+    height: 100vh;          /* make image smaller */
+    object-fit: cover;
+  }
+
+  .details .left{
+    position: absolute;    /* KEEP overlay on mobile */
+    top: 20%;              /* push text down */
+    left:10%;             /* move text inward */
+    width: 80%;            /* centered width */
+    text-align: center;    /* center text */
+    margin: 0;             /* reset margin */
+    padding: 0;
+  }
+
+  .details .left h1{
+    font-size: 32px;
+  }
+
+  .details .left p{
+    font-size: 16px;
+  }
+
+  .details .left input, .details .left button{
+    width:100%;
+  }
+}
+
+
+
+
+/* footer */
+.footer{
+  margin-top: 50px;
+  width:100%;
+  height: 100px;
+  background-color: #333;
+  color:white;
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+}
+
+.footer p{
+  margin-top: 30px;
+  margin-left: 30px;
+  font-size: 20px;
+
+}
+.footer .right{
+  width:30%;
+  /* border: 1px solid red; */
+  margin-right: 50px;
+  margin-top: 30px;
+  font-size: 20px;
+}
+
+.footer .right svg{
+  width:20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+
+/* responsive */
+@media(max-width:768px){
+  .footer{
+    width:100%;
+    display: grid;
+    height: auto;
+  }
+
+  .footer p{
+    width:100%;
+    text-align: center;
+  }
+
+  .footer .right{
+    width: 100%;
+    /* border: 1px solid red; */
+    text-align: center;
+    margin-bottom: 20px;
+  }
+}
